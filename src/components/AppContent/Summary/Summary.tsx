@@ -33,8 +33,8 @@ class Summary extends React.Component<IProps, IState> {
                             <h3>Final Values</h3>
                             <div>Converged: {converged ? `Yes` : `No`}</div>
                             <div>Susceptible, S =  {(S && S.length) ? S[S.length - 1].toFixed(3) : `0`}</div>
-                            <div>Infected, I = {(I && I.length) ? I[I.length - 1].toFixed(3) : `0`} (Infected)</div>
-                            <div>Removed, R = {(R && R.length) ? R[R.length - 1].toFixed(3) : `0`} (Removed)</div>
+                            <div>Infected, I = {(I && I.length) ? I[I.length - 1].toFixed(3) : `0`}</div>
+                            <div>Removed, R = {(R && R.length) ? R[R.length - 1].toFixed(3) : `0`}</div>
                         </Col>
                         <Col xs={24} md={5} >
                             <h3>Other Information</h3>
