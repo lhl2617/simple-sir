@@ -33,3 +33,5 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+.firebase
