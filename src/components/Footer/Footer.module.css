@@ -1,0 +1,35 @@
+.root {
+    min-height: 10%;
+    background-color: rgb(52, 58, 64);
+    color: rgba(255, 255, 255, 0.75);
+    margin: auto;
+    text-align: center;
+}
+
+.box {
+    padding: 20px 10px 40px 10px;
+}
+
+.switch {
+    padding: 15px 0 18px;
+}
+
+.root h5 {
+    font-weight: 400;
+    font-size: 16px;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.root a {
+    color: lightblue;
+}
+
+.coffee {
+    margin-bottom: 20px;
+    transition: transform .2s;
+}
+
+.coffee:hover {
+    transform: scale(1.05);
+}

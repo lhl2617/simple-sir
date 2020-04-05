@@ -1,0 +1,7 @@
+.root {
+    /* min-width: max(500px, 90vw); */
+    /* min-height: max(1000px); */
+    /* height: 1000px; */
+    max-width: min(80vw, 800px);
+    margin: auto;
+}
