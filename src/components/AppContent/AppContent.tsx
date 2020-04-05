@@ -45,7 +45,7 @@ class AppContent extends React.Component<IProps, IState> {
         const { input, model } = this.state;
         // console.log(input);
         const output = model.simulate(input);
-        console.log(output);
+        // console.log(output);
         this.setState({
             ...this.state,
             output: output
@@ -103,7 +103,7 @@ class AppContent extends React.Component<IProps, IState> {
         return (
             <div className={styles.root}>
                 <h1>Simple Interactive SIR Model</h1>
-                <h2>(Kermack-McKendrick Model)</h2>
+                <h2>(Kermack-McKendrick Model; RK4)</h2>
                 <Row gutter={32} style={{ margin: 32 }} justify="space-around">
                     {(this.getColsForRow([`b`, `g`, `I_0`, `Steps`]))}
                 </Row>

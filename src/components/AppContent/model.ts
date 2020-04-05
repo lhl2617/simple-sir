@@ -67,9 +67,7 @@ export class SIRModel {
         const last = Math.round(arr[arr.length - 1] * 10000);
         const slast = Math.round(arr[arr.length - 2] * 10000);
     
-        console.log(last);
-        console.log(slast);
-        return (last !== undefined) && (last === slast);
+        return (last !== undefined) &&(last === slast);
     }
 
     private b: number = 0.1;

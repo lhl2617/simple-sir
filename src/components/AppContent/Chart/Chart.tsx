@@ -8,6 +8,7 @@ const chartProps = {
     options: {
         chart: {
             type: 'line',
+            fontFamily: 'CMUSS'
             // height: '100%'
         },
         stroke: {
