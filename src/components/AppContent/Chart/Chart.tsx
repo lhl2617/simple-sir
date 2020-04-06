@@ -1,14 +1,22 @@
 import * as React from 'react';
-import Chart from 'react-apexcharts';
 import { SystemOutput } from '../types';
-
 import styles from './Chart.module.css';
+import Chart from 'react-apexcharts';
+
+const chartID = `chart`;
+
+// @ts-ignore
+const ApexCharts = window.ApexCharts;
 
 const chartProps = {
+    series: [],
     options: {
+        colors: ['#0984e3', '#d63031', '#636e72'],
         chart: {
+            // stacked: true,
+            id: chartID,
             type: 'line',
-            fontFamily: 'CMUSS'
+            fontFamily: 'CMUSS',
             // height: '100%'
         },
         stroke: {
@@ -16,7 +24,7 @@ const chartProps = {
         },
         title: {
             text: 'SIR Model',
-            align: 'left'
+            // align: 'left'
         },
         grid: {
             row: {
@@ -35,7 +43,6 @@ const chartProps = {
         }
     },
 }
-
 interface IProps {
     output: SystemOutput
 }
@@ -44,26 +51,33 @@ interface IState {
 }
 
 class SIRChart extends React.Component<IProps, IState> {
+    componentDidUpdate = (prevProps: IProps) => {
+        if (this.props !== prevProps) {
+            const { S, I, R } = this.props.output;
+
+            const series = [
+                {
+                    name: `S`,
+                    data: S,
+                },
+                {
+                    name: `I`,
+                    data: I,
+                },
+                {
+                    name: `R`,
+                    data: R
+                }
+            ];
+
+            ApexCharts.exec(chartID, `updateSeries`, series);
+        }
+    };
+
     render() {
-        const { output } = this.props;
-        const { S, I, R } = output;
-        const series = [
-            {
-                name: `S`,
-                data: S,
-            },
-            {
-                name: `I`,
-                data: I,
-            },
-            {
-                name: `R`,
-                data: R
-            }
-        ]
         return (
             <div className={styles.root}>
-                <Chart type="line" {...chartProps} series={series} />
+                <Chart {...chartProps}/>
             </div>
         )
     }
