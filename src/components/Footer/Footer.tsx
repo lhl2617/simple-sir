@@ -13,6 +13,13 @@ export class Footer extends React.Component {
                     <h5>
                         Compartmental Models in Epidemiology
                     </h5>
+
+
+                    <h5>
+                        All models approximated using
+                    <a rel="noopener noreferrer" target="_blank" href="https://lpsa.swarthmore.edu/NumInt/NumIntFourth.html"> RK4</a>
+                    </h5>
+
                     <h5>
                         Created by L.H. Lee
                     </h5>

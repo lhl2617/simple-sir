@@ -11,7 +11,6 @@ export type SystemInput = Record<InputKey, number>;
 export type SystemOutput = {
     S: number[];
     I: number[];
-    R: number[];
     converged: boolean;
 }
 

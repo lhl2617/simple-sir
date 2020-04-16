@@ -3,25 +3,23 @@ import * as Integrator from 'ode-rk4'; // no types :(
 import { SystemInput, SystemOutput } from './types';
 import { checkConvergence, RK4FuncType } from '../Common/util';
 
-export class SIRModel {
-    private sir: RK4FuncType = (dydt: number[], y: number[], t: number[]) => {
+export class SISModel {
+    private SIS: RK4FuncType = (dydt: number[], y: number[], t: number[]) => {
         const S = y[0];
         const I = y[1];
-        // const R = y[2];
-        dydt[0] = -this.b * S * I;               // S
-        dydt[1] = this.b * S * I - this.g * I;   // I
-        dydt[2] = this.g * I;                    // R
+        dydt[0] = -this.b * S * I + this.g * I;            // S
+        dydt[1] = this.b * S * I - this.g * I;             // I
     };
 
     public simulate = (
         input: SystemInput,
-        f: RK4FuncType = this.sir,
+        f: RK4FuncType = this.SIS,
     ): SystemOutput => {
         const { b, g, I_0 } = input;
         let { Steps } = input;
         this.b = b;
         this.g = g;
-        const y_0 = [1.0 - input.I_0, I_0, 0.0];
+        const y_0 = [1.0 - input.I_0, I_0];
 
 
         // ode system solver
@@ -39,7 +37,6 @@ export class SIRModel {
         return {
             S: ys[0],
             I: ys[1],
-            R: ys[2],
             converged: checkConvergence(ys[0])
         }
     };

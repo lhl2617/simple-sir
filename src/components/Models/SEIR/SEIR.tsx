@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from '../Common/styles.module.css';
-import { SIRModel } from './model';
+import { SEIRModel } from './model';
 import { Slider, InputNumber, Row, Col } from 'antd';
 import { SystemInput, InputKey, StringToInputKey, SystemOutput } from './types';
 import { BaseChart } from '../Common/Chart';
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 interface IState {
-    model: SIRModel,
+    model: SEIRModel,
     input: SystemInput;
     output: SystemOutput
 }
@@ -19,6 +19,9 @@ interface IState {
 const labels: Record<InputKey, LabelInfo> = {
     b: { symbol: `\u03B2`, info: `Infectivity rate`, step: 0.001, min: 0, max: 1 },
     g: { symbol: `\u03B3`, info: `Recovery rate`, step: 0.001, min: 0, max: 1 },
+    l: { symbol: `\u039B`, info: `Birth rate`, step: 0.001, min: 0, max: 1 },
+    m: { symbol: `\u03BC`, info: `Mortality rate`, step: 0.001, min: 0, max: 1 },
+    a: { symbol: `\u03B1`, info: `Incubation rate parameter`, step: 0.001, min: 0, max: 1 },
     I_0: { symbol: `I\u2080`, info: `Initial proportion infected`, step: 0.001, min: 0, max: 1.0 },
     Steps: { symbol: `S`, info: `Simulation steps`, step: 1, min: 5, max: 1000 }
 }
@@ -26,17 +29,20 @@ const labels: Record<InputKey, LabelInfo> = {
 const initialState: SystemInput = {
     b: 0.1,
     g: 0.05,
+    l: 0.01,
+    m: 0.005,
+    a: 0.005,
     I_0: 0.01,
     Steps: 150
 }
 
-class SIR extends React.Component<IProps, IState> {
+class SEIR extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            model: new SIRModel(),
+            model: new SEIRModel(),
             input: initialState,
-            output: { S: [], I: [], R: [], converged: false }
+            output: { S: [], E: [], I: [], R: [], converged: false }
         }
     }
 
@@ -94,11 +100,15 @@ class SIR extends React.Component<IProps, IState> {
 
     getSeries = () => {
         const { output } = this.state;
-        const { S, I, R } = output;
+        const { S, E, I, R } = output;
         return [
             {
                 name: `S`,
                 data: S
+            },
+            {
+                name: `E`,
+                data: E
             },
             {
                 name: `I`,
@@ -115,12 +125,15 @@ class SIR extends React.Component<IProps, IState> {
         const { output, input } = this.state;
         return (
             <div className={styles.root}>
-                <h1>SIR Model</h1>
+                <h1>SEIR Model</h1>
                 <Row gutter={32} style={{ margin: 32 }} justify="space-around">
-                    {(this.getColsForRow([`b`, `g`, `I_0`, `Steps`]))}
+                    {(this.getColsForRow([`b`, `g`, `l`, `m`]))}
+                </Row>
+                <Row gutter={32} style={{ margin: 32 }} justify="space-around">
+                    {(this.getColsForRow([`a`, `I_0`, `Steps`]))}
                 </Row>
 
-                <BaseChart colors={['#0984e3', '#d63031', '#636e72']} series={this.getSeries()} title={`SIR Model`}/>
+                <BaseChart colors={['#0984e3', '#f39c12','#d63031', '#636e72']} series={this.getSeries()} title={`SEIR Model`}/>
 
                 <Summary input={input} output={output} />
             </div>
@@ -128,4 +141,4 @@ class SIR extends React.Component<IProps, IState> {
     }
 };
 
-export default SIR;
+export default SEIR;

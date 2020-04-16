@@ -1,5 +1,5 @@
-import SIRChart from './Chart';
+import BaseChart from './Chart';
 
 export {
-    SIRChart
+    BaseChart
 };

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styles from '../Common/styles.module.css';
-import { SIRModel } from './model';
+import { SISModel } from './model';
 import { Slider, InputNumber, Row, Col } from 'antd';
 import { SystemInput, InputKey, StringToInputKey, SystemOutput } from './types';
 import { BaseChart } from '../Common/Chart';
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 interface IState {
-    model: SIRModel,
+    model: SISModel,
     input: SystemInput;
     output: SystemOutput
 }
@@ -30,13 +30,13 @@ const initialState: SystemInput = {
     Steps: 150
 }
 
-class SIR extends React.Component<IProps, IState> {
+class SIS extends React.Component<IProps, IState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            model: new SIRModel(),
+            model: new SISModel(),
             input: initialState,
-            output: { S: [], I: [], R: [], converged: false }
+            output: { S: [], I: [], converged: false }
         }
     }
 
@@ -94,7 +94,7 @@ class SIR extends React.Component<IProps, IState> {
 
     getSeries = () => {
         const { output } = this.state;
-        const { S, I, R } = output;
+        const { S, I } = output;
         return [
             {
                 name: `S`,
@@ -103,10 +103,6 @@ class SIR extends React.Component<IProps, IState> {
             {
                 name: `I`,
                 data: I
-            },
-            {
-                name: `R`,
-                data: R
             }
         ];
     }
@@ -115,12 +111,12 @@ class SIR extends React.Component<IProps, IState> {
         const { output, input } = this.state;
         return (
             <div className={styles.root}>
-                <h1>SIR Model</h1>
+                <h1>SIS Model</h1>
                 <Row gutter={32} style={{ margin: 32 }} justify="space-around">
                     {(this.getColsForRow([`b`, `g`, `I_0`, `Steps`]))}
                 </Row>
 
-                <BaseChart colors={['#0984e3', '#d63031', '#636e72']} series={this.getSeries()} title={`SIR Model`}/>
+                <BaseChart colors={['#0984e3', '#d63031']} series={this.getSeries()} title={`SIS Model`}/>
 
                 <Summary input={input} output={output} />
             </div>
@@ -128,4 +124,4 @@ class SIR extends React.Component<IProps, IState> {
     }
 };
 
-export default SIR;
+export default SIS;
