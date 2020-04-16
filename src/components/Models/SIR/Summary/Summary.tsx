@@ -46,9 +46,6 @@ class Summary extends React.Component<IProps, IState> {
                 <div className={styles.summary}>
                     <h2>Resources</h2>
                     <div>
-                        <a rel="noopener noreferrer" target="_blank" href="https://github.com/lhl2617/simple-sir">Source code (Github)</a>
-                    </div>
-                    <div>
                         <a rel="noopener noreferrer" target="_blank" href="https://mathworld.wolfram.com/Kermack-McKendrickModel.html">Wolfram MathWorld</a>
                     </div>
                     <div>

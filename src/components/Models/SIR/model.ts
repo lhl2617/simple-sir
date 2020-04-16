@@ -1,6 +1,7 @@
 // @ts-ignore
 import * as Integrator from 'ode-rk4'; // no types :(
 import { RK4FuncType, SystemInput, SystemOutput } from './types';
+import { checkConvergence } from '../Common/util';
 
 // const fst = (([a, b, c]: any[]) => a);
 // const snd = (([a, b, c]: any[]) => b);
@@ -8,16 +9,19 @@ import { RK4FuncType, SystemInput, SystemOutput } from './types';
 
 export class SIRModel {
     private sir: RK4FuncType = (dydt: number[], y: number[], t: number[]) => {
-        dydt[0] = -this.b * y[0] * y[1];                  // S
-        dydt[1] = this.b * y[0] * y[1] - this.g * y[1];   // I
-        dydt[2] = this.g * y[1];                          // R
+        const S = y[0];
+        const I = y[1];
+        // const R = y[2];
+        dydt[0] = -this.b * S * I;               // S
+        dydt[1] = this.b * S * I - this.g * I;   // I
+        dydt[2] = this.g * I;                    // R
     };
 
     public simulate = (
         input: SystemInput,
         f: RK4FuncType = this.sir,
     ): SystemOutput => {
-        const { b, g, I_0, N } = input;
+        const { b, g, I_0 } = input;
         let { Steps } = input;
         this.b = b;
         this.g = g;
@@ -35,10 +39,6 @@ export class SIRModel {
             ys.push(rk4.y.slice()); // add results into ys
         }
 
-        if (N !== 1) {
-            ys = ys.map((y: number[]) => y.map((v) => v * N));
-        } 
-
         // return {
         //     S: ys.map(fst),
         //     I: ys.map(snd),
@@ -52,23 +52,9 @@ export class SIRModel {
             S: ys[0],
             I: ys[1],
             R: ys[2],
-            converged: this.checkConvergence(ys[0])
+            converged: checkConvergence(ys[0])
         }
     };
-
-    /**
-     * Check if the final two values differ at 4dp
-     */
-    private checkConvergence = (arr: number[]) => {
-    
-        // edge case
-        if (arr.length <= 2) return false;
-    
-        const last = Math.round(arr[arr.length - 1] * 10000);
-        const slast = Math.round(arr[arr.length - 2] * 10000);
-    
-        return (last !== undefined) &&(last === slast);
-    }
 
     private b: number = 0.1;
     private g: number = 0.05;

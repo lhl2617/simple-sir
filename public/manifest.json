@@ -1,6 +1,6 @@
 {
-  "short_name": "Simple SIR",
-  "name": "Simple Interactive SIR Model",
+  "short_name": "Epidemiology Models",
+  "name": "Compartmental Models in Epidemiology",
   "icons": [
     {
       "src": "favicon.ico",
