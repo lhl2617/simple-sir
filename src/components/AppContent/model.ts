@@ -37,7 +37,7 @@ export class SIRModel {
 
         if (N !== 1) {
             ys = ys.map((y: number[]) => y.map((v) => v * N));
-        } 
+        }
 
         // return {
         //     S: ys.map(fst),
