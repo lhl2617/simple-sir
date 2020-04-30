@@ -10,7 +10,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "antd": "^4.1.4",
+    "antd": "^4.2.0",
     "apexcharts": "^3.18.1",
     "babel-plugin-import": "^1.13.0",
     "ode-rk4": "^1.1.3",
