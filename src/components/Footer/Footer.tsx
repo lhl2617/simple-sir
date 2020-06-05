@@ -17,7 +17,7 @@ export class Footer extends React.Component {
                         Created by L.H. Lee
                     </h5>
                     <span>
-                       <a rel="noopener noreferrer" href="mailto:l.h.lee2617@gmail.com">Email</a> | <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/lin-hao-l-821730b7/">LinkedIn</a>
+                       <a rel="noopener noreferrer" href="mailto:l.h.lee2617@gmail.com">Email</a> | <a rel="noopener noreferrer" target="_blank" href="https://www.linkedin.com/in/linhaolee/">LinkedIn</a>
                     </span>
                 </div>
             </div>
